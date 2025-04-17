@@ -1,46 +1,35 @@
 # endsem
-def calculate_salary(hourly_rate, hours_worked, tax_rate=0.15):
-    """
-    This function calculates the net salary of an employee based on their hourly rate,
-    hours worked, and tax rate. The function first computes the gross salary by multiplying
-    hourly rate by hours worked, then deducts the tax, and finally returns the net salary.
-    
-    Parameters:
-    hourly_rate (float): The hourly wage of the employee.
-    hours_worked (float): The number of hours worked by the employee.
-    tax_rate (float): The tax rate to be applied on the gross salary (default is 0.15).
-    
-    Returns:
-    float: The net salary after tax deduction.
-    """
-    # Compute gross salary
-    gross_salary = hourly_rate * hours_worked
-    
-    # Deduct tax from the gross salary
-    tax_deduction = gross_salary * tax_rate
-    net_salary = gross_salary - tax_deduction
-    
-    return net_salary
+class BankAccount:
+    def __init__(self, account_number, balance=0):
+        # Initialize the account with account number and an optional balance (defaults to 0)
+        self.account_number = account_number
+        self.balance = balance
 
-def main():
-    # Get user input for hourly rate and hours worked
-    try:
-        hourly_rate = float(input("Enter hourly rate: "))
-        hours_worked = float(input("Enter hours worked: "))
-        
-        # Ensure that the input values are non-negative
-        if hourly_rate < 0 or hours_worked < 0:
-            print("Hourly rate and hours worked must be non-negative numbers.")
+    def deposit(self, amount):
+        # Increase the balance by the deposited amount
+        self.balance += amount
+        print(f"Depositing {amount}")
+
+    def withdraw(self, amount):
+        # Check if balance is sufficient for withdrawal
+        if amount > self.balance:
+            print("Error: Insufficient funds for withdrawal.")
         else:
-            # Call the function to calculate the net salary
-            net_salary = calculate_salary(hourly_rate, hours_worked)
-            
-            # Print the net salary in a formatted manner
-            print(f"Net Salary: {net_salary:,.2f}")
-    
-    except ValueError:
-        print("Invalid input. Please enter valid numerical values for hourly rate and hours worked.")
+            self.balance -= amount
+            print(f"Withdrawing {amount}")
 
-# Call the main function to execute the program
-if __name__ == "__main__":
-    main()
+    def get_balance(self):
+        # Return and print the current balance
+        print(f"Current balance: {self.balance}")
+        return self.balance
+
+# Create an instance of BankAccount with an account number "123456789"
+account = BankAccount("123456789")
+
+# Test deposit and withdrawal methods
+account.deposit(5000)  # Deposit 5000
+account.withdraw(2000)  # Withdraw 2000
+
+# Print the final balance
+account.get_balance()  # Get and print the current balance
+
